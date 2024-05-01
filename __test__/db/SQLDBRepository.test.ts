@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals'
 // Import the SQLDBManager class and the types
-import { SQLDBRepository } from '../../dist/db/sql/SQLDBRepository'
+import { SQLDBRepository } from '../../src/db/sql/SQLDBRepository'
 
 
 // Mock the SQLConnector module
@@ -22,13 +22,13 @@ describe('SQLDBManager', () => {
       const mockExecuteQuery = jest.fn().mockResolvedValue({
         status: 'DATA',
         data: [{...user}],
-      })
+      } as never)
 
       // Create an instance of SQLDBRepository
       const dbManager = new SQLDBRepository()
 
       // Mock the executeQuery method of SQLConnector
-      dbManager.connector.executeQuery = mockExecuteQuery
+      dbManager.connector.executeQuery = mockExecuteQuery as any
 
       // Call the getUserPassword method and assert the result
       await expect(dbManager.getUserByUsername('mockUsername')).resolves.toEqual(user)
@@ -38,13 +38,13 @@ describe('SQLDBManager', () => {
     // Test case for handling database errors
     it('should return error object when database error occurs', async () => {
       // Mock the response from the executeQuery method of SQLConnector to simulate a database error
-      const mockExecuteQuery = jest.fn().mockResolvedValue({ status: 'ERROR', errorMsg: "Database Error"})
+      const mockExecuteQuery = jest.fn().mockResolvedValue({ status: 'ERROR', errorMsg: "Database Error"} as never)
 
       // Create an instance of SQLDBRepository
       const dbManager = new SQLDBRepository()
 
       // Mock the executeQuery method of SQLConnector
-      dbManager.connector.executeQuery = mockExecuteQuery
+      dbManager.connector.executeQuery = mockExecuteQuery as any
 
       // Call the getUserPassword method and assert the result
       await expect(dbManager.getUserByUsername('mockUsername')).rejects.toMatch('Database Error')
@@ -55,13 +55,13 @@ describe('SQLDBManager', () => {
       // Mock the response from the executeQuery method of SQLConnector to simulate no entry
       const mockExecuteQuery = jest.fn().mockResolvedValue({
         status: 'EMPTY'
-    })
+    } as never)
 
       // Create an instance of SQLDBRepository
       const dbManager = new SQLDBRepository()
 
       // Mock the executeQuery method of SQLConnector
-      dbManager.connector.executeQuery = mockExecuteQuery
+      dbManager.connector.executeQuery = mockExecuteQuery as any
 
       // Call the getUserPassword method and assert the result
       await expect(dbManager.getUserByUsername('mockUsername')).resolves.toBeNull()

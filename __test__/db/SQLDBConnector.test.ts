@@ -1,7 +1,7 @@
-import { SQLConnector } from '../../dist/db/sql/SQLDBConnector' 
+import { SQLConnector } from '../../src/db/sql/SQLDBConnector'
 
 // Create a global variable to hold the SQLConnector instance
-let sqlConnector
+let sqlConnector: SQLConnector
 
 // Describe the test suite for SQLConnector
 describe('SQLConnector', () => {
@@ -23,7 +23,7 @@ describe('SQLConnector', () => {
     // Test case for executing a query successfully
     it('should execute a query successfully', async () => {
       // Execute a query (assuming you have a test database with appropriate data)
-      const result = await sqlConnector.executeQuery('SELECT * FROM test_table')
+      const result = await sqlConnector.executeQuery('SELECT * FROM test_table') as any
 
       // Assert the result
       expect(result.status).toBe('DATA')
@@ -34,7 +34,7 @@ describe('SQLConnector', () => {
     // Test case for executing a query successfully
     it('should execute a query successfully with values existing', async () => {
       // Execute a query (assuming you have a test database with appropriate data)
-      const result = await sqlConnector.executeQuery('SELECT * FROM test_table WHERE username = ?', 'user1')
+      const result = await sqlConnector.executeQuery('SELECT * FROM test_table WHERE username = ?', 'user1') as any
 
       // Assert the result
       expect(result.status).toBe('DATA')
@@ -45,7 +45,7 @@ describe('SQLConnector', () => {
     // Test case for executing a query successfully
     it('should execute a query successfully with multiple values existing', async () => {
       // Execute a query (assuming you have a test database with appropriate data)
-      const result = await sqlConnector.executeQuery('SELECT * FROM test_table WHERE username = ? AND password = ?', 'user1', 'compass1')
+      const result = await sqlConnector.executeQuery('SELECT * FROM test_table WHERE username = ? AND password = ?', 'user1', 'compass1') as any
 
       // Assert the result
       expect(result.status).toBe('DATA')
@@ -56,7 +56,7 @@ describe('SQLConnector', () => {
     // Test case for executing a query successfully
     it('should execute a query successfully with values non-existing', async () => {
       // Execute a query (assuming you have a test database with appropriate data)
-      const result = await sqlConnector.executeQuery('SELECT * FROM test_table WHERE username = ?', 'user2')
+      const result = await sqlConnector.executeQuery('SELECT * FROM test_table WHERE username = ?', 'user2') as any
 
       // Assert the result
       expect(result.status).toBe('EMPTY')
@@ -67,7 +67,7 @@ describe('SQLConnector', () => {
     // Test case for handling errors during query execution
     it('should handle errors during query execution', async () => {
       // Execute a query that is expected to fail
-      const result = await sqlConnector.executeQuery('SELECT * FROM non_existent_table')
+      const result = await sqlConnector.executeQuery('SELECT * FROM non_existent_table') as any
 
       // Assert the result
       expect(result.status).toBe('ERROR')
