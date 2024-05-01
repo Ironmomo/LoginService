@@ -29,3 +29,5 @@
 7. Do not save any confidential user data (e.g. password) in plaintext to mitigate the risk of data breaches.
 
 8. All communication with the outside must be encrypted.
+
+9. The system must not allow any information leakage to guess valid usernames (e.g. Response Time, HTML Status Code, Error Message)
