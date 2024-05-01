@@ -35,7 +35,7 @@ export type MessageObject = {
     User authentication Message Object
 */
 export type UserAuthMessageObject = {
-    message: "Password compared" | "Tried to many times" | "Error" | "No valid user"
+    message: "Password compared" | "Tried too many times" | "Error" | "No valid user"
 } & MessageObject
 
 

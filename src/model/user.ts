@@ -37,7 +37,7 @@ export default class User {
              if ( config.LOGIN_THRESHOLD > calcDateDifferenceMinutes(this.last_attempt, new Date())) {
                 return {
                     status: false,
-                    message: "Tried to many times"
+                    message: "Tried too many times"
                 }
              } else {
                 return await this.#comparePwd(password)

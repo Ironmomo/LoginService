@@ -17,7 +17,7 @@ export const authenticate: RequestHandler = async (request: Request, response: R
     await enforceResponseTime(startTime)
 
     if (authValidation.message === "Error") return response.status(500).json({ message: "Server Side Error happend. We are working on it!" } as APIResponse)
-    if (authValidation.status === false && authValidation.message === "Tried to many times") return response.status(400).json({ message: authValidation.message } as APIResponse)
+    if (authValidation.status === false && authValidation.message === "Tried too many times") return response.status(400).json({ message: authValidation.message } as APIResponse)
     if (authValidation.status === false && (authValidation.message === "Password compared" || authValidation.message === "No valid user")) return response.status(400).json({ message: "Invalid Username or Password" } as APIResponse)
 }
 
