@@ -3,6 +3,7 @@ import { authenticate } from "./controller/controller"
 import config from "../../config/default"
 import { validateAuthObj } from "./middleware/middleware"
 
+
 const router = Router()
 
 // Set middleware functions

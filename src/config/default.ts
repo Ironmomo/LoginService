@@ -10,7 +10,7 @@ type DefaultConfig = {
 const config: DefaultConfig = {
     MAX_LOGIN_ATTEMPT: 5,
     LOGIN_THRESHOLD: 15,
-    PWD_PAYLOAD_LIMIT: 60
+    PWD_PAYLOAD_LIMIT: 250
 }
 
 export default config
