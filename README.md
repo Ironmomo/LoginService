@@ -2,15 +2,14 @@
 
 ## Functional
 
+Please see the [API-Documentation](https://documenter.getpostman.com/view/16623785/2sA3JFAj75) to get more insights about the API behaviour.
+
 ### Functional Requirements
 1. Provide Sign-up functionality to register a new user with a username and a password.
 
 2. Provide Sign-in functionality to authenticate a user using: 
     - username & password
-    - JWT
-    - base
  
-
 
 ### Security Requirements
 
