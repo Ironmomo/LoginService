@@ -91,6 +91,26 @@ describe('User model tests', () => {
     
             expect(user.login_count).toBe(1)
         })
+
+        it('should increment login count', () => {
+            const last_attempt = new Date()
+            last_attempt.setTime(last_attempt.getTime() - (config.LOGIN_THRESHOLD * 60 * 1000) + 50)
+            const user = new User('testuser', 'hashedPassword', 0, last_attempt)
+            
+            user.logLogin()
+    
+            expect(user.login_count).toBe(1)
+        })
+
+        it('should not increment login count', () => {
+            const last_attempt = new Date()
+            last_attempt.setTime(last_attempt.getTime() - (config.LOGIN_THRESHOLD * 60 * 1000) - 100)
+            const user = new User('testuser', 'hashedPassword', 0, last_attempt)
+            
+            user.logLogin()
+    
+            expect(user.login_count).toBe(0)
+        })
     })
 
     describe('Validate user object structure', () => {

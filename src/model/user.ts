@@ -61,7 +61,7 @@ export default class User {
     }
 
     logLogin(): void {
-        this.login_count += 1
+        this.login_count += calcDateDifferenceMinutes(this.last_attempt, new Date()) >= config.LOGIN_THRESHOLD ? 0 : 1
         this.last_attempt = new Date()
     }
 
