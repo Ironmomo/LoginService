@@ -233,4 +233,5 @@ describe('User model tests', () => {
             expect(isValidPassword).toBe(false)
         })
     })
+
 })

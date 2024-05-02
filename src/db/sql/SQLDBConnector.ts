@@ -1,5 +1,4 @@
 import mysql from 'mysql2/promise'
-import type { ResultSetHeader } from 'mysql2/promise'
 import { DBResponseObject } from '../types'
 import dotenv from "dotenv"
 dotenv.config()

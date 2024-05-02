@@ -67,5 +67,42 @@ describe('SQLDBManager', () => {
       await expect(dbManager.getUserByUsername('mockUsername')).resolves.toBeNull()
     })
   })
+  // Test suite for createNewUser
+  describe('createNewUser', () => {
+    it('should return successfull', async () => {
+      
+      // Mock the response from the executeQuery method of SQLConnector
+      const mockExecuteQuery = jest.fn().mockResolvedValue({
+        status: 'DATA',
+        data: 1,
+      } as never)
 
+      // Create an instance of SQLDBRepository
+      const dbManager = new SQLDBRepository()
+
+      // Mock the executeQuery method of SQLConnector
+      dbManager.connector.executeQuery = mockExecuteQuery as any
+
+      // Call the getUserPassword method and assert the result
+      await expect(dbManager.createNewUser('validUser', 'somePassword')).resolves.toEqual({ status: 'DATA', data: 1})
+
+    })
+
+    it('should return unsuccessfull', async () => {     
+      // Mock the response from the executeQuery method of SQLConnector
+      const mockExecuteQuery = jest.fn().mockResolvedValue({
+        status: 'ERROR',
+        data: "Some error Msg",
+      } as never)
+
+      // Create an instance of SQLDBRepository
+      const dbManager = new SQLDBRepository()
+
+      // Mock the executeQuery method of SQLConnector
+      dbManager.connector.executeQuery = mockExecuteQuery as any
+
+      // Call the getUserPassword method and assert the result
+      await expect(dbManager.createNewUser('invalidUser', 'somePassword')).resolves.toEqual({status: 'ERROR', data: "Some error Msg"})
+    })
+  })
 })

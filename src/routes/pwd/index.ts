@@ -1,5 +1,5 @@
 import express, { Router } from "express"
-import { authenticate } from "./controller/controller"
+import { authenticate, register } from "./controller/controller"
 import config from "../../config/default"
 import { validateAuthObj } from "./middleware/middleware"
 
@@ -11,5 +11,7 @@ router.use(express.urlencoded({ extended: true, limit: config.PWD_PAYLOAD_LIMIT 
 
 // Define routes
 router.post("/auth", validateAuthObj, authenticate)
+
+router.post("/signup", register)
 
 export default router

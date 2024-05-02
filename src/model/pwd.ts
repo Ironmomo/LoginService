@@ -22,6 +22,13 @@ export type UserAuthMessageObject = {
 } & MessageObject
 
 
+/*
+    User signup Message Object
+*/
+export type UserSignupMessageObject = {
+    message: "Username or Password don't meet the constraints" | "User created" | "Username exists" | "Error"
+} & MessageObject
+
 /* 
     API Response Object
 */

@@ -1,13 +1,42 @@
 import { RequestHandler, Request, Response, NextFunction } from "express"
-import { authenticate as userAuth } from "../service/service"
+import { authenticate as userAuth, signup as userSignup } from "../service/service"
 import { APIResponse } from "../../../model/pwd"
 import { sleep } from "../../../utils/utils"
 
 const MIN_FAILED_RESPONSE_TIME = 450
 
+/**
+ * Handles the registration process for a new user.
+ */
+export const register: RequestHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        // Perform user signup with provided username and password
+        const register = await userSignup(request.body.username, request.body.password)
+
+        // On success
+        if (register.status === true) return response.status(200).json({ message: `User with username: ${request.body.username} created` } as APIResponse)
+        
+            // On failure
+        if (register.status === false) {
+            if (register.message === "Error") throw new Error()
+            else {
+                // Enforce minimum Responsetime to slow down username bruteforcing
+                await sleep(250)
+                return response.status(400).json({ message: register.message} as APIResponse)
+            }
+        }
+    } catch (error) {
+        // Forward unhandled Error to Errorhandler
+        next(error)
+    }
+}
+
+/**
+ * RequestHandler for user authentication.
+ * Verifies the provided username and password and returns appropriate responses.
+ */
 export const authenticate: RequestHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-        // TODO MAKE FAILED PWD AND FAILED USERNAME RESPONSE DURATION SAME
         const startTime = new Date().getTime()
         // Authenticate
         const authValidation = await userAuth(request.body.username, request.body.password)
@@ -26,6 +55,10 @@ export const authenticate: RequestHandler = async (request: Request, response: R
     }
 }
 
+/**
+ * Enforces a minimum response time to prevent reasoning about failed authentication.
+ * @param startTime The start time of the authentication process.
+ */
 async function enforceResponseTime(startTime: number): Promise<void> {
     // Check time passed for validation
     const duration = new Date().getTime() - startTime

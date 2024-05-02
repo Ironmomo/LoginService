@@ -1,6 +1,7 @@
 import getInstance from "./SQLDBConnector"
 import { SQLConnector } from "./SQLDBConnector"
 import User  from "../../model/user"
+import { DBResponseObject } from "../types"
 
 export class SQLDBRepository {
 
@@ -8,6 +9,18 @@ export class SQLDBRepository {
 
     constructor() {
         this.connector = getInstance()
+    }
+
+    /**
+     * Creates a new user with the provided username and hashed password in the database. If the username allready exists the new user could not be created.
+     * @param username The username of the new user.
+     * @param hashed_password The hashed password of the new user.
+     * @returns A Promise that resolves to a DBResponseObject representing the result of the database operation. 
+     * If an entry with the username exists a ErrorDBResponseObject is returned.
+     * If the user has been created a DataDBResponseObject<number> is returned.
+     */
+    createNewUser(username: string, hashed_password: string): Promise<DBResponseObject<any>> {
+        return this.connector.executeQuery('INSERT INTO user_table(username, password) VALUE(?,?)', username, hashed_password)
     }
 
     /**
