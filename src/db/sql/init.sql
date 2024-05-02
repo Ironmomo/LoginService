@@ -21,3 +21,6 @@ CREATE TABLE IF NOT EXISTS test_table(
     last_attempt DATETIME DEFAULT NOW(),
     CONSTRAINT PRIMARY KEY (username)
 );
+
+-- Default users for testing
+INSERT INTO test_table(username, password) VALUE ('user1', 'compass1');
