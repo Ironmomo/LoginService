@@ -1,5 +1,96 @@
 # Login-Service
 
+## Getting Started
+
+### Clone the Repo
+```bash
+git clone https://github.com/Ironmomo/LoginService.git
+```
+
+### Initialize the Database
+
+It is mandatory to setup a mysql database. To initialize use the following script: [init.sql](db/init.sql).
+
+To make it more easy for you I recommend to set up a docker container with the following Dockerfile. Make shure to use the correct path to the init.sql script
+
+```Dockerfile
+#Dockerfile
+# Use the official MySQL image as the base image
+FROM mysql
+
+# Set environment variables for MySQL root user password
+ENV MYSQL_ROOT_PASSWORD=12345678
+
+# Copy the init.sql script into the Docker container's /docker-entrypoint-initdb.d/ directory
+# This directory is used by the MySQL Docker image to automatically initialize databases during container startup
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Expose port 3306 to allow external connections to the MySQL server
+EXPOSE 3306
+```
+
+Start the docker container
+```bash
+# build the image
+docker build . mysql_loginservice
+
+# Start the container
+docker run --name mysql_container -d -p 3306:3306 mysql_loginservice
+```
+
+### Setup the environment
+
+Create a .env file in the root directory
+```
+#.env
+# Express
+PORT=5550
+
+# DB
+DB_USER=root
+DB_HOST=localhost
+DB_DATABASE=LoginDB
+DB_PASSWORD=12345678
+```
+
+### Configs
+
+There are a few configuration you can make before running the application. Let's give an overview about the different setttings:
+
+**MAX_LOGIN_ATTEMPT:** 
+Numeric value to set how many invalid login attempts to the same user can be made until the user gets locked for a defined amount of time. Default is 5
+
+**LOGIN_THRESHOLD:**
+Numeric value to set the amount of time in minutes to past until a locked user gets unlocked again. Default is 15 which means the account is locked for 15 minutes if the number of invalid login attempts reaches MAX_LOGIN_ATTEMPT.
+
+**PWD_PAYLOAD_LIMIT:**
+Numeric value to define the maximum size of the Request body in bytes. The payload for pwd is the username and password field. Therefore the maximum number of bytes of a valid payload would be 55. (username=<username(max 12)>&password=<password(max24)>)
+
+**ENABLE_CORS:**
+Boolean to enable (true) or disable (false) CORS. If enabled Cross-Origin-Resource-Policy header is set to *same-origin*
+
+```
+DefaultConfig = {
+    // PWD Authentication
+    MAX_LOGIN_ATTEMPT: number
+    LOGIN_THRESHOLD: number
+
+    // PWD Request Validation
+    PWD_PAYLOAD_LIMIT: number
+
+    // CORS
+    ENABLE_CORS: boolean
+}
+```
+
+### Build and Run the Project
+
+```bash
+npm run build
+
+npm run start
+```
+
 ## Functional
 
 Please refer to the [API-Documentation](https://documenter.getpostman.com/view/16623785/2sA3JFAj75) for more insights into the API's behavior.
