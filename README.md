@@ -63,6 +63,9 @@ Numeric value to set how many invalid login attempts to the same user can be mad
 **LOGIN_THRESHOLD:**
 Numeric value to set the amount of time in minutes to past until a locked user gets unlocked again. Default is 15 which means the account is locked for 15 minutes if the number of invalid login attempts reaches MAX_LOGIN_ATTEMPT.
 
+**NUMBER_OF_HASHES:**
+Numeric value to set the number of hash iteration when encrypting the password
+
 **PWD_PAYLOAD_LIMIT:**
 Numeric value to define the maximum size of the Request body in bytes. The payload for pwd is the username and password field. Therefore the maximum number of bytes of a valid payload would be 55. (username=<username(max 12)>&password=<password(max24)>)
 
@@ -74,6 +77,7 @@ DefaultConfig = {
     // PWD Authentication
     MAX_LOGIN_ATTEMPT: number
     LOGIN_THRESHOLD: number
+    NUMBER_OF_HASHES: number
 
     // PWD Request Validation
     PWD_PAYLOAD_LIMIT: number
