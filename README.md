@@ -9,7 +9,7 @@ git clone https://github.com/Ironmomo/LoginService.git
 
 ### Initialize the Database
 
-It is mandatory to setup a mysql database. To initialize use the following script: [init.sql](db/init.sql).
+It is mandatory to setup a mysql database. To initialize use the following script: [init.sql](src/db/sql/init.sql).
 
 To make it more easy for you I recommend to set up a docker container with the following Dockerfile. Make shure to use the correct path to the init.sql script
 
