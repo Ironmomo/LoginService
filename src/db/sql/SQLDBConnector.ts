@@ -69,9 +69,10 @@ export class SQLConnector {
      */
     handleExit(): void {
         if (!this.isExiting) {
-            this.isExiting = true;
-            console.log('Exiting application. Closing SQL connection...');
-            this.#closeConnection();
+            this.isExiting = true
+            console.log('Closing SQL connection...')
+            this.#closeConnection()
+            console.log('SQL connection closed')
         }
     }
 }
@@ -79,12 +80,6 @@ export class SQLConnector {
 
 // Create a singleton instance
 let sqlConnectorInstance = new SQLConnector()
-
-// Handle cleanup before process exit
-process.on('beforeExit', () => {
-    sqlConnectorInstance.handleExit()
-});
-
 
 
 // Export the singleton instance

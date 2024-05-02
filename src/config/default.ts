@@ -5,12 +5,16 @@ type DefaultConfig = {
 
     // PWD Request Validation
     PWD_PAYLOAD_LIMIT: number
+
+    // CORS
+    ENABLE_CORS: boolean
 }
 
 const config: DefaultConfig = {
     MAX_LOGIN_ATTEMPT: 5,
     LOGIN_THRESHOLD: 15,
-    PWD_PAYLOAD_LIMIT: 250
+    PWD_PAYLOAD_LIMIT: 250,
+    ENABLE_CORS: true
 }
 
 export default config
