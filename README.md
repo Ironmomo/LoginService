@@ -149,6 +149,6 @@ Refer to the [API-Documentation](https://documenter.getpostman.com/view/16623785
 
 7. Passwords are stored using bcrypt, which stores the hash and a salt of the password.
 
-9. If the username or the password is wrong, the same response object and status code must be sent.
-
-9. To enforce the same response time, a sleep function is implemented.
+9.
+    - If the username or the password is wrong, the same response object and status code must be sent.
+    - To enforce the same response time, a sleep function is implemented.
