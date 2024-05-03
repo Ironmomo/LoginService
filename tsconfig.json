@@ -26,6 +26,6 @@
   },
 
   // Specify the files that should be included and excluded in the compilation process
-     "include": ["src/**/*.ts", "src/index.ts"],
+     "include": ["src/**/*.ts", "src/app.ts"],
   "exclude": ["node_modules", "dist"]
 }
