@@ -1,5 +1,15 @@
 # Login-Service
 
+## Table of Contents
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+- [Functional](#functional)
+    - [Functional Requirements](#functional-requirements)
+    - [Security Requirements](#security-requirements)
+    - [Security Design](#security-design)
+
+## Introduction
+
 ## Getting Started
 
 ### Clone the Repo
