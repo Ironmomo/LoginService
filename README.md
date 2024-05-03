@@ -21,7 +21,7 @@ git clone https://github.com/Ironmomo/LoginService.git
 
 ### Initialize the Database
 
-o set up a MySQL database, execute the [init.sql](src/db/sql/init.sql) script. You can use Docker to simplify this process by building and running a container with the provided Dockerfile.
+To set up a MySQL database, execute the [init.sql](src/db/sql/init.sql) script. You can use Docker to simplify this process by building and running a container with the provided Dockerfile.
 
 ```Dockerfile
 #Dockerfile
