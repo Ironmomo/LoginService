@@ -10,6 +10,8 @@
 
 ## Introduction
 
+The Login Service API provides authentication functionality via HTTP, allowing users to securely sign up and sign in using usernames and passwords. This document outlines the setup process, functional requirements, security measures, and design considerations of the API.
+
 ## Getting Started
 
 ### Clone the Repo
@@ -19,9 +21,7 @@ git clone https://github.com/Ironmomo/LoginService.git
 
 ### Initialize the Database
 
-It is mandatory to setup a mysql database. To initialize use the following script: [init.sql](src/db/sql/init.sql).
-
-To make it more easy for you I recommend to set up a docker container with the following Dockerfile. Make shure to use the correct path to the init.sql script
+o set up a MySQL database, execute the [init.sql](src/db/sql/init.sql) script. You can use Docker to simplify this process by building and running a container with the provided Dockerfile.
 
 ```Dockerfile
 #Dockerfile
@@ -50,7 +50,8 @@ docker run --name mysql_container -d -p 3306:3306 mysql_loginservice
 
 ### Setup the environment
 
-Create a .env file in the root directory
+Create a .env file in the root directory and configure environment variables for the Express server and database connection.
+
 ```
 #.env
 # Express
@@ -65,7 +66,7 @@ DB_PASSWORD=12345678
 
 ### Configs
 
-There are a few configuration you can make before running the application. Let's give an overview about the different setttings:
+Customize the API behavior by modifying configuration settings such as maximum login attempts, login threshold, number of hashes, payload limit, and CORS settings.
 
 **MAX_LOGIN_ATTEMPT:** 
 Numeric value to set how many invalid login attempts to the same user can be made until the user gets locked for a defined amount of time. Default is 5
@@ -107,27 +108,26 @@ npm run start
 
 ## Functional
 
-Please refer to the [API-Documentation](https://documenter.getpostman.com/view/16623785/2sA3JFAj75) for more insights into the API's behavior.
+Refer to the [API-Documentation](https://documenter.getpostman.com/view/16623785/2sA3JFAj75) for detailed insights into the API's behavior and endpoints.
 
 ### Functional Requirements
 
-1. Provide sign-up functionality to register a new user with a username and a password.
+1. **Sign-up Functionality:** Allow users to register with a username and password.
 
-2. Provide sign-in functionality to authenticate a user using:
-   - Username & password.
+2. **Sign-in Functionality:** Authenticate users using their username and password.
  
 
 ### Security Requirements
 
-1. The system must enforce strong user passwords to prevent password guessing and cracking attacks.
-2. The application must not directly access the underlying operating system (files, operating system commands).
-3. Database access must be implemented securely to prevent SQL injection attacks.
-4. All data received from users or other systems are considered untrusted and must first be validated before being processed further.
-5. The payload size of the requests must be limited to prevent DoS attacks.
-6. Authentication requests to the same user must be throttled down to prevent effective brute-forcing attacks.
-7. Do not save any confidential user data (e.g., password) in plaintext to mitigate the risk of data breaches.
-8. All communication with the outside world must be encrypted.
-9. The system must not allow any information leakage to guess valid usernames (e.g., response time, HTML status code, error message).
+1. **Strong Password Enforcement:** Ensure strong passwords to prevent guessing and cracking attacks.
+2. **Prevent Direct OS Access:** Avoid direct access to the operating system to enhance security.
+3. **Secure Database Access:** Implement secure database access to prevent SQL injection attacks.
+4. **Data Validation:** Validate all data received from users or other systems to mitigate security risks.
+5. **Payload Size Limit:** Limit request payload size to prevent Denial of Service (DoS) attacks.
+6. **Throttling:** Throttle authentication requests to prevent brute-forcing attacks.
+7. **Prevent data breaches:** Do not save any confidential user data (e.g. password) in plaintext.
+8. **Encrypted Communication:** Encrypt all communication with external systems to protect data.
+9. **Information Leakage Prevention:** Prevent information leakage to enhance security.
 
 ### Security Design
 
@@ -149,4 +149,6 @@ Please refer to the [API-Documentation](https://documenter.getpostman.com/view/1
 
 7. Passwords are stored using bcrypt, which stores the hash and a salt of the password.
 
-9. If the username or the password is wrong, the same response object and status code must be sent. To enforce the same response time, a sleep function is implemented.
+9. If the username or the password is wrong, the same response object and status code must be sent.
+
+9. To enforce the same response time, a sleep function is implemented.
